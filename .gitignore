@@ -1,0 +1,24 @@
+# Python Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE configurations (except .vscode/launch.json, which we want to share)
+.vscode/*
+!.vscode/launch.json
+.idea/
+.project
+.pydevproject
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Standalone execution artifacts or local logs
+*.log

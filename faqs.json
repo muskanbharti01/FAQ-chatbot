@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "question": "How can I track my order?",
+    "answer": "You can track your order using the 'Track Order' link sent in your shipping confirmation email, or by logging into your account and visiting the 'My Orders' section.",
+    "category": "Shipping"
+  },
+  {
+    "id": 2,
+    "question": "What is your return policy?",
+    "answer": "We offer a 30-day return policy for all unused items in their original packaging. Return shipping is free for store credit, or $5.99 if refunded to your original payment method.",
+    "category": "Returns"
+  },
+  {
+    "id": 3,
+    "question": "How long does shipping take?",
+    "answer": "Standard shipping takes 3-5 business days. Express shipping takes 1-2 business days. International orders may take 7-14 business days depending on destination and customs.",
+    "category": "Shipping"
+  },
+  {
+    "id": 4,
+    "question": "What payment methods do you accept?",
+    "answer": "We accept all major credit cards (Visa, MasterCard, American Express, Discover), PayPal, Apple Pay, Google Pay, and Shop Pay.",
+    "category": "Payments"
+  },
+  {
+    "id": 5,
+    "question": "Can I change or cancel my order?",
+    "answer": "Orders can be changed or canceled within 1 hour of placing them. Please contact our support team immediately via chat or email at support@shopvibe.com with your order number.",
+    "category": "Orders"
+  },
+  {
+    "id": 6,
+    "question": "Do you ship internationally?",
+    "answer": "Yes, we ship to over 50 countries worldwide. International shipping rates and delivery times vary by destination and will be calculated at checkout.",
+    "category": "Shipping"
+  },
+  {
+    "id": 7,
+    "question": "How do I reset my password?",
+    "answer": "To reset your password, click on the 'Forgot Password' link on the Login page. Enter your email address, and we will send you a password reset link.",
+    "category": "Account"
+  },
+  {
+    "id": 8,
+    "question": "What should I do if my item is damaged upon arrival?",
+    "answer": "If your item arrives damaged, please email support@shopvibe.com within 48 hours of delivery with photos of the damaged item and packaging. We will arrange a free replacement.",
+    "category": "Returns"
+  },
+  {
+    "id": 9,
+    "question": "How do I contact customer support?",
+    "answer": "You can contact our customer support team via the Live Chat on our website, by emailing support@shopvibe.com, or by calling 1-800-555-VIBE (9 AM - 6 PM EST, Monday to Friday).",
+    "category": "General"
+  },
+  {
+    "id": 10,
+    "question": "Can I exchange an item for a different size or color?",
+    "answer": "Yes, we offer free exchanges for different sizes or colors of the same item within 30 days of purchase, subject to availability. Contact support to start the process.",
+    "category": "Returns"
+  },
+  {
+    "id": 11,
+    "question": "How long does it take to get a refund?",
+    "answer": "Refunds are processed within 5-7 business days after we receive and inspect your returned items. The credit will automatically be applied to your original payment method.",
+    "category": "Payments"
+  },
+  {
+    "id": 12,
+    "question": "Is my payment information secure?",
+    "answer": "Yes, we take security very seriously. All transactions are encrypted using secure socket layer technology (SSL) and we comply with PCI-DSS standards.",
+    "category": "Security"
+  }
+]

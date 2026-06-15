@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopVibe AI Support Center</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation (Glassmorphic) -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-glow"></div>
+                <i class="fa-solid fa-robot brand-icon"></i>
+                <div class="brand-text">
+                    <h1>ShopVibe</h1>
+                    <span>AI Assistant</span>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <button class="nav-item active" id="btn-chat-view">
+                    <i class="fa-solid fa-comments"></i>
+                    <span>Chat Assistant</span>
+                </button>
+                <button class="nav-item" id="btn-faq-view">
+                    <i class="fa-solid fa-database"></i>
+                    <span>FAQ Database</span>
+                </button>
+                <button class="nav-item" id="btn-insights-view">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    <span>NLP Insights</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="theme-toggle" id="theme-toggle">
+                    <i class="fa-solid fa-moon dark-icon"></i>
+                    <i class="fa-solid fa-sun light-icon"></i>
+                    <span class="theme-text">Dark Mode</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Area -->
+        <main class="main-content">
+            <!-- HEADER -->
+            <header class="top-header">
+                <div class="page-title">
+                    <h2 id="current-view-title">Chat Assistant</h2>
+                    <p id="current-view-desc">Interact with the NLP-powered FAQ support chatbot.</p>
+                </div>
+                <div class="server-status">
+                    <span class="status-indicator online"></span>
+                    <span class="status-label">NLP Server Live</span>
+                </div>
+            </header>
+
+            <!-- VIEW 1: CHAT BOT ASSISTANT -->
+            <section class="content-view active" id="view-chat">
+                <div class="chat-layout">
+                    <!-- Left: Chat Panel -->
+                    <div class="chat-panel card">
+                        <div class="chat-messages" id="chat-box">
+                            <!-- Greeting Message -->
+                            <div class="message bot-message">
+                                <div class="avatar">
+                                    <i class="fa-solid fa-robot"></i>
+                                </div>
+                                <div class="message-content-wrapper">
+                                    <div class="message-content">
+                                        <p>Hello! I'm ShopVibe's automated assistant. How can I help you today? You can select a quick question below or type your own question.</p>
+                                    </div>
+                                    <span class="message-time">Just now</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Quick Suggestion Chips -->
+                            <div class="suggestions-container" id="suggestions-box">
+                                <button class="suggestion-chip">How can I track my order?</button>
+                                <button class="suggestion-chip">What is your return policy?</button>
+                                <button class="suggestion-chip">How do I reset my password?</button>
+                                <button class="suggestion-chip">What payment methods do you accept?</button>
+                            </div>
+                        </div>
+
+                        <!-- Chat Input Bar -->
+                        <form class="chat-input-area" id="chat-form">
+                            <input type="text" id="chat-input" placeholder="Type your question here (e.g., 'where is my package?')..." autocomplete="off" required>
+                            <button type="submit" class="btn-send" id="btn-send">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Right: Quick Info Panel -->
+                    <div class="quick-info-panel">
+                        <div class="card threshold-card">
+                            <h3><i class="fa-solid fa-sliders"></i> Match Sensitivity</h3>
+                            <p>Adjust the threshold for cosine similarity matching.</p>
+                            <div class="range-slider-container">
+                                <input type="range" id="threshold-slider" min="0.0" max="1.0" step="0.05" value="0.25">
+                                <div class="slider-labels">
+                                    <span>Exact (1.0)</span>
+                                    <span class="slider-value" id="threshold-val">0.25</span>
+                                    <span>Loose (0.0)</span>
+                                </div>
+                            </div>
+                            <div class="threshold-description">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <span>Low value matches more loosely. High value requires matching words more closely.</span>
+                            </div>
+                        </div>
+
+                        <div class="card recent-matches-card">
+                            <h3><i class="fa-solid fa-magnifying-glass"></i> Match Diagnostics</h3>
+                            <div class="diagnostic-stat">
+                                <span class="diag-label">Last Score:</span>
+                                <span class="diag-value" id="diag-last-score">--</span>
+                            </div>
+                            <div class="diagnostic-stat">
+                                <span class="diag-label">Best Match FAQ:</span>
+                                <span class="diag-value match-name" id="diag-last-match">None</span>
+                            </div>
+                            <div class="diagnostic-tokens">
+                                <span class="diag-label">Parsed Tokens:</span>
+                                <div class="token-chips" id="diag-tokens-box">
+                                    <span class="token-placeholder">No query yet</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 2: FAQ DATABASE MANAGER -->
+            <section class="content-view" id="view-faq">
+                <div class="faq-manager-layout">
+                    <!-- FAQ List Panel -->
+                    <div class="faq-list-panel card">
+                        <div class="faq-toolbar">
+                            <div class="search-box">
+                                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                                <input type="text" id="faq-search" placeholder="Search FAQs by question or answer...">
+                            </div>
+                            <button class="btn btn-primary" id="btn-open-add-form">
+                                <i class="fa-solid fa-plus"></i> Add FAQ
+                            </button>
+                        </div>
+                        
+                        <!-- Category Filters -->
+                        <div class="category-filters" id="category-filters-container">
+                            <button class="filter-chip active" data-category="all">All</button>
+                            <button class="filter-chip" data-category="shipping">Shipping</button>
+                            <button class="filter-chip" data-category="returns">Returns</button>
+                            <button class="filter-chip" data-category="payments">Payments</button>
+                            <button class="filter-chip" data-category="account">Account</button>
+                            <button class="filter-chip" data-category="general">General</button>
+                        </div>
+
+                        <!-- FAQ Accordion -->
+                        <div class="faq-accordion" id="faq-list">
+                            <!-- Populated by JS -->
+                            <div class="loading-state">
+                                <i class="fa-solid fa-spinner fa-spin"></i> Loading FAQs...
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Form Side Panel (Hidden by default, slides in) -->
+                    <div class="faq-form-panel card" id="faq-form-container">
+                        <div class="form-header">
+                            <h3 id="form-title">Add New FAQ</h3>
+                            <button class="btn-close-form" id="btn-close-form"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                        <form id="faq-editor-form">
+                            <input type="hidden" id="edit-faq-id">
+                            
+                            <div class="form-group">
+                                <label for="faq-question">Question</label>
+                                <textarea id="faq-question" placeholder="Enter the FAQ question..." required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="faq-answer">Answer</label>
+                                <textarea id="faq-answer" placeholder="Enter the answer..." rows="5" required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="faq-category">Category</label>
+                                <select id="faq-category" required>
+                                    <option value="Shipping">Shipping</option>
+                                    <option value="Returns">Returns</option>
+                                    <option value="Payments">Payments</option>
+                                    <option value="Orders">Orders</option>
+                                    <option value="Account">Account</option>
+                                    <option value="Security">Security</option>
+                                    <option value="General" selected>General</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" id="btn-cancel-form">Cancel</button>
+                                <button type="submit" class="btn btn-primary" id="btn-submit-faq">Save FAQ</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 3: NLP INSIGHTS & VISUALIZATION -->
+            <section class="content-view" id="view-insights">
+                <div class="insights-grid">
+                    <div class="card col-full">
+                        <h3><i class="fa-solid fa-network-wired"></i> NLP Similarity Matching Engine</h3>
+                        <p>This view displays a live visualization of the Cosine Similarity scores between your last question and all stored FAQs. The NLP engine tokenizes, stems/lemmatizes your query, and matches it using TF-IDF representation.</p>
+                    </div>
+                    
+                    <div class="card col-half" id="insights-text-analysis">
+                        <h3><i class="fa-solid fa-code"></i> Processing Pipelines</h3>
+                        <div class="pipeline-flow">
+                            <div class="pipeline-step">
+                                <div class="step-num">1</div>
+                                <div class="step-details">
+                                    <h4>User Query (Raw)</h4>
+                                    <p class="pipeline-data" id="insight-raw-query">--</p>
+                                </div>
+                            </div>
+                            <div class="pipeline-step">
+                                <div class="step-num">2</div>
+                                <div class="step-details">
+                                    <h4>Tokenized & Lemmatized</h4>
+                                    <p class="pipeline-data token-highlight" id="insight-clean-tokens">--</p>
+                                </div>
+                            </div>
+                            <div class="pipeline-step">
+                                <div class="step-num">3</div>
+                                <div class="step-details">
+                                    <h4>TF-IDF Vector Representation</h4>
+                                    <p class="pipeline-data" id="insight-vector-details">Calculates importance weights for search words.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card col-half">
+                        <h3><i class="fa-solid fa-square-poll-horizontal"></i> Cosine Similarity Ranking</h3>
+                        <p class="sub-heading">Similarity scores for current query across the FAQ database (Threshold: <span id="insights-threshold-val">0.25</span>):</p>
+                        <div class="chart-container" id="similarity-chart">
+                            <!-- Visual bars populated by JS -->
+                            <div class="no-chart-data">No diagnostic data. Send a chat message first!</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-check-circle toast-icon"></i>
+        <span class="toast-message">Action successful!</span>
+    </div>
+
+    <!-- Script Entry -->
+    <script src="/static/app.js"></script>
+</body>
+</html>
